@@ -1,0 +1,85 @@
+D:/Code/Modeltech_pe_edu_10.4a/examples/Project_1/mips.v {1 {vlog -work work -stats=none D:/Code/Modeltech_pe_edu_10.4a/examples/Project_1/mips.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module mips
+
+Top level modules:
+	mips
+
+} {} {}} D:/Code/Modeltech_pe_edu_10.4a/examples/Project_1/datapath/register.v {1 {vlog -work work -stats=none D:/Code/Modeltech_pe_edu_10.4a/examples/Project_1/datapath/register.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module register
+
+Top level modules:
+	register
+
+} {} {}} D:/Code/Modeltech_pe_edu_10.4a/examples/Project_1/datapath/im.v {1 {vlog -work work -stats=none D:/Code/Modeltech_pe_edu_10.4a/examples/Project_1/datapath/im.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module im_4k
+
+Top level modules:
+	im_4k
+
+} {} {}} D:/Code/Modeltech_pe_edu_10.4a/examples/Project_1/control/ctrl.v {1 {vlog -work work -stats=none D:/Code/Modeltech_pe_edu_10.4a/examples/Project_1/control/ctrl.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module ctrl
+
+Top level modules:
+	ctrl
+
+} {} {}} D:/Code/Modeltech_pe_edu_10.4a/examples/Project_1/datapath/dm.v {1 {vlog -work work -stats=none D:/Code/Modeltech_pe_edu_10.4a/examples/Project_1/datapath/dm.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module dm_4k
+
+Top level modules:
+	dm_4k
+
+} {} {}} D:/Code/Modeltech_pe_edu_10.4a/examples/Project_1/datapath/pc.v {1 {vlog -work work -stats=none D:/Code/Modeltech_pe_edu_10.4a/examples/Project_1/datapath/pc.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module pc
+
+Top level modules:
+	pc
+
+} {} {}} D:/Code/Modeltech_pe_edu_10.4a/examples/Project_1/datapath/regheap.v {1 {vlog -work work -stats=none D:/Code/Modeltech_pe_edu_10.4a/examples/Project_1/datapath/regheap.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module regheap
+
+Top level modules:
+	regheap
+
+} {} {}} D:/Code/Modeltech_pe_edu_10.4a/examples/Project_1/control/ALUctrl.v {1 {vlog -work work -stats=none D:/Code/Modeltech_pe_edu_10.4a/examples/Project_1/control/ALUctrl.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module ALUctrl
+
+Top level modules:
+	ALUctrl
+
+} {} {}} D:/Code/Modeltech_pe_edu_10.4a/examples/Project_1/datapath/ext.v {1 {vlog -work work -stats=none D:/Code/Modeltech_pe_edu_10.4a/examples/Project_1/datapath/ext.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module ext
+
+Top level modules:
+	ext
+
+} {} {}} D:/Code/Modeltech_pe_edu_10.4a/examples/Project_1/datapath/alu.v {1 {vlog -work work -stats=none D:/Code/Modeltech_pe_edu_10.4a/examples/Project_1/datapath/alu.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module alu
+
+Top level modules:
+	alu
+
+} {} {}} D:/Code/Modeltech_pe_edu_10.4a/examples/Project_1/testbench.v {1 {vlog -work work -stats=none D:/Code/Modeltech_pe_edu_10.4a/examples/Project_1/testbench.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module testbench
+
+Top level modules:
+	testbench
+
+} {} {}} D:/Code/Modeltech_pe_edu_10.4a/examples/Project_1/datapath/mux.v {1 {vlog -work work -stats=none D:/Code/Modeltech_pe_edu_10.4a/examples/Project_1/datapath/mux.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module mux2
+
+Top level modules:
+	mux2
+
+} {} {}}
