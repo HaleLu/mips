@@ -47,7 +47,7 @@ module mips(clk, rst) ;
 	mux2 #(5) wreg_mux(.a(ins[20:16]), .b(ins[15:11]), .s(RegDst), .dout(wreg));
 	regheap regheap(.clk(clk), .we(RegWrite), .rreg1(ins[25:21]), .rreg2(ins[20:16]),
 					.wreg(wreg), .wdata(wdata), .rdata1(rdata1), .rdata2(rdata2));
-	ext #(16) ext(.in(ins[15:0]), .dout(const_or_addr));
+	ext #(16) ext(.din(ins[15:0]), .dout(const_or_addr));
 	assign ALUSrc_data1 = rdata1;
 	mux2 #(32) ALUSrc_mux(.a(rdata2), .b(const_or_addr), .s(ALUSrc), .dout(ALUSrc_data2));
 	ALUctrl ALUctrl(.ALUOp(ALUOp), .funct(ins[5:0]), .op(op));
