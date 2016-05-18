@@ -25,7 +25,7 @@ module ctrl(op, RegDst, RegWrite, ALUSrc, MemRead, MemWrite, MemtoReg, Jump, Bra
 				RegWrite = 1;
 				MemRead = 0;
 				MemWrite = 0;
-				Jump = 0;
+				Jump = 1;
 				Branch = 0;
 				ALUOp = 2'b10;
 			end
@@ -37,6 +37,7 @@ module ctrl(op, RegDst, RegWrite, ALUSrc, MemRead, MemWrite, MemtoReg, Jump, Bra
 				RegWrite = 1;
 				MemRead = 1;
 				MemWrite = 0;
+				Jump = 1;
 				Branch = 0;
 				ALUOp = 2'b00;
 			end
@@ -46,6 +47,7 @@ module ctrl(op, RegDst, RegWrite, ALUSrc, MemRead, MemWrite, MemtoReg, Jump, Bra
 				RegWrite = 0;
 				MemRead = 0;
 				MemWrite = 1;
+				Jump = 1;
 				Branch = 0;
 				ALUOp = 2'b00;
 			end
@@ -55,12 +57,18 @@ module ctrl(op, RegDst, RegWrite, ALUSrc, MemRead, MemWrite, MemtoReg, Jump, Bra
 				RegWrite = 0;
 				MemRead = 0;
 				MemWrite = 0;
+				Jump = 1;
 				Branch = 1;
 				ALUOp = 2'b01;
 			end
 
 			J: begin
-				
+				ALUSrc = 0;
+				RegWrite = 0;
+				MemRead = 0;
+				MemWrite = 0;
+				Jump = 0;
+				Branch = 0;
 			end
 		endcase
 	end

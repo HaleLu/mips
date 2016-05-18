@@ -6,7 +6,7 @@ module im_4k( addr, dout ) ;
 	
 	initial
 	begin
-		$readmemh("code.txt", im);
+		$readmemh("D:\\Code\\Repos\\mips\\Project_1\\code.txt", im);
 	end
 
 	assign dout = im[addr[11:2]][31:0];
