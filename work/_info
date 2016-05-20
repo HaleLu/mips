@@ -9,7 +9,7 @@ z2
 cModel Technology
 dD:/Code/Repos/mips/Project_1
 valu
-Z0 !s110 1463536355
+Z0 !s110 1463562631
 !i10b 1
 !s100 i2g6S2eQY958M=[_QR@`I2
 I;S3zcI2k2fiWJgc_AG:CM2
@@ -23,7 +23,7 @@ Z3 OP;L;10.4a;61
 r1
 !s85 0
 31
-Z4 !s108 1463536355.000000
+Z4 !s108 1463562631.000000
 !s107 D:/Code/Repos/mips/Project_1/datapath/alu.v|
 !s90 -reportprogress|300|-work|work|-stats=none|D:/Code/Repos/mips/Project_1/datapath/alu.v|
 !s101 -O0
@@ -58,7 +58,7 @@ R0
 Ij5emU5Z9nOM04MQPJ_K7F3
 R1
 R2
-w1463536345
+w1463562406
 8D:/Code/Repos/mips/Project_1/control/ctrl.v
 FD:/Code/Repos/mips/Project_1/control/ctrl.v
 L0 1
@@ -75,11 +75,11 @@ R5
 vdm_4k
 R0
 !i10b 1
-!s100 ioZg=;K@dEal4C]^_NGIg2
-I>F8OG;>c<=zjSb8SL7Gi82
+!s100 AL>HKlM=5II=GS<2jMA003
+IHQGlBamnU3_]0hNSiSV<E0
 R1
 R2
-w1463531584
+w1463560265
 8D:/Code/Repos/mips/Project_1/datapath/dm.v
 FD:/Code/Repos/mips/Project_1/datapath/dm.v
 L0 1
@@ -117,11 +117,11 @@ R5
 vim_4k
 R0
 !i10b 1
-!s100 ZcbQJQSDN3Ib>Nk`VicbZ0
-I];UcQkgOc:e3O2VjdOli]0
+!s100 3o7GhE@4miohRmd6CU02>1
+IzYCCIFnWlm9ZA`d5JU;GH0
 R1
 R2
-w1463533617
+w1463553177
 8D:/Code/Repos/mips/Project_1/datapath/im.v
 FD:/Code/Repos/mips/Project_1/datapath/im.v
 L0 1
@@ -178,7 +178,7 @@ R4
 !i113 1
 R5
 vpc
-Z6 !s110 1463536356
+R0
 !i10b 1
 !s100 8kGFPU]V@oPfH2l@?_UkH3
 I;1fzmF4m?JLX:;=i^V;dJ3
@@ -199,13 +199,13 @@ R4
 !i113 1
 R5
 vregheap
-R6
+R0
 !i10b 1
-!s100 z@m:L;3E<3HILo<BkOdaI3
-IFOPkG:I1i[9d;QEeC2?iN3
+!s100 ^30>5`AKMP?nXdg<IBHU`3
+IdHb9O>Xnn@OEE`IAoWPOI2
 R1
 R2
-w1463532571
+w1463559338
 8D:/Code/Repos/mips/Project_1/datapath/regheap.v
 FD:/Code/Repos/mips/Project_1/datapath/regheap.v
 L0 1
@@ -213,7 +213,7 @@ R3
 r1
 !s85 0
 31
-!s108 1463536356.000000
+R4
 !s107 D:/Code/Repos/mips/Project_1/datapath/regheap.v|
 !s90 -reportprogress|300|-work|work|-stats=none|D:/Code/Repos/mips/Project_1/datapath/regheap.v|
 !s101 -O0
