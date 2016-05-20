@@ -45,16 +45,31 @@ module mips(clk, rst) ;
 	wire			WB_RegDst;
 	wire			WB_RegWrite;
 
-	wire			ALUSrc;
-	wire			MemRead;
-	wire			MemWrite;
-	wire			MemtoReg;
-	wire			Jump;
-	wire			Branch;
-	wire	[1:0]	ALUOp;
+	// M_Reg
+	wire			ID_Branch;
+	wire			ID_MemRead;
+	wire			ID_MemWrite;
+	wire			EX_Branch;
+	wire			EX_MemRead;
+	wire			EX_MemWrite;
+	wire			MEM_Branch;
+	wire			MEM_MemRead;
+	wire			MEM_MemWrite;
+
+	// EX_Reg
+	wire			ID_ALUSrc;
+	wire			ID_MemtoReg;
+	wire	[1:0]	ID_ALUOp;
+	wire			EX_ALUSrc;
+	wire			EX_MemtoReg;
+	wire	[1:0]	EX_ALUOp;
+
+
+	wire			ID_Jump;
+	wire			EX_Jump;
 
 	// IF
-	mux2 #(32) br_mux(.a(IF_pc_plus_4), .b(MEM_pc_br), .s(Branch & zero), .dout(pc_tmp));
+	mux2 #(32) br_mux(.a(IF_pc_plus_4), .b(MEM_pc_br), .s(MEM_Branch & MEM_zero), .dout(pc_tmp));
 	mux2 #(32) j_mux(.a({pc_plus_4[31:28],ins[25:0],2'b00}), .b(pc_tmp), .s(Jump), .dout(pc_next));
 	pc pc(.clk(clk), .rst(rst), .data(pc_next), .dout(pc_now));
 	assign IF_pc_plus_4 = pc_now + 4;
@@ -64,18 +79,22 @@ module mips(clk, rst) ;
 	IF_ID IF_ID(.clk(clk), .IF_pc_plus_4(IF_pc_plus_4), .IF_ins(IF_ins), .ID_pc_plus_4(ID_pc_plus_4), .ID_ins(ID_ins));
 
 	// ID
-	ctrl ctrl(	.op(ID_ins[31:26]), .RegDst(ID_RegDst), RegWrite(ID_RegWrite), .ALUSrc(ALUSrc),
-				.MemRead(MemRead), .MemWrite(MemWrite), .MemtoReg(MemtoReg),
-				.Jump(Jump), .Branch(Branch), .ALUOp(ALUOp));
-	regheap regheap(.clk(clk), .we(RegWrite), .rreg1(ID_ins[25:21]), .rreg2(ID_ins[20:16]),
+	ctrl ctrl(	.op(ID_ins[31:26]), .RegDst(ID_RegDst), RegWrite(ID_RegWrite), .ALUSrc(ID_ALUSrc),
+				.MemRead(ID_MemRead), .MemWrite(ID_MemWrite), .MemtoReg(ID_MemtoReg),
+				.Jump(Jump), .Branch(ID_Branch), .ALUOp(ID_ALUOp));
+	regheap regheap(.clk(clk), .we(WB_RegWrite), .rreg1(ID_ins[25:21]), .rreg2(ID_ins[20:16]),
 					.wreg(wreg), .wdata(wdata), .rdata1(ID_rdata1), .rdata2(ID_rdata2));
 	ext #(16) ext(.din(ID_ins[15:0]), .dout(ID_const_or_addr));
 
 	// ID/EX
 	ID_EX ID_EX(.clk(clk), .ID_RegDst(ID_RegDst), .ID_RegWrite(ID_RegWrite),
+				.ID_Branch(ID_Branch), .ID_MemRead(ID_MemRead), .ID_MemWrite(ID_MemWrite),
+				.ID_ALUSrc(ID_ALUSrc), .ID_MemtoReg(ID_MemtoReg), .ID_ALUOp(ID_ALUOp),
 				.ID_pc_plus_4(ID_pc_plus_4), .ID_rdata1(ID_rdata1), .ID_rdata2(ID_rdata2),
 				.ID_const_or_addr(ID_const_or_addr), .ID_rt(ID_ins[20:16]), .ID_rd(ID_ins[15:11]),
 				.EX_RegDst(EX_RegDst), .EX_RegWrite(EX_RegWrite),
+				.EX_Branch(EX_Branch), .EX_MemRead(EX_MemRead), .EX_MemWrite(EX_MemWrite),
+				.EX_ALUSrc(EX_ALUSrc), .EX_MemtoReg(EX_MemtoReg), .EX_ALUOp(EX_ALUOp),
 				.EX_pc_plus_4(EX_pc_plus_4), .EX_rdata1(EX_rdata1), .EX_rdata2(EX_rdata2),
 				.EX_const_or_addr(EX_const_or_addr), .EX_rt(EX_rt), .EX_rd(EX_rd));
 
@@ -88,18 +107,25 @@ module mips(clk, rst) ;
 	mux2 #(5) wreg_mux(.a(EX_rt), .b(EX_rd), .s(RegDst), .dout(EX_wreg));
 	
 	// EX/MEM
-	EX_MEM EX_MEM(.clk(clk), .EX_pc_br(EX_pc_br), .EX_zero(EX_zero), .EX_ALU_res(EX_ALU_res),
-				  .EX_rdata2(EX_rdata2), .EX_wreg(EX_wreg), .MEM_pc_br(MEM_pc_br), .MEM_zero(MEM_zero),
+	EX_MEM EX_MEM(.clk(clk), .EX_RegDst(EX_RegDst), .EX_RegWrite(EX_RegWrite),
+				  .EX_Branch(EX_Branch), .EX_MemRead(EX_MemRead), .EX_MemWrite(EX_MemWrite),
+				  .EX_pc_br(EX_pc_br), .EX_zero(EX_zero), .EX_ALU_res(EX_ALU_res),
+				  .EX_rdata2(EX_rdata2), .EX_wreg(EX_wreg), 
+				  .MEM_RegDst(MEM_RegDst), .MEM_RegWrite(MEM_RegWrite),
+				  .MEM_Branch(MEM_Branch), .MEM_MemRead(MEM_MemRead), .MEM_MemWrite(MEM_MemWrite),
+				  .MEM_pc_br(MEM_pc_br), .MEM_zero(MEM_zero),
 				  .MEM_ALU_res(MEM_ALU_res), .MEM_rdata2(MEM_rdata2), .MEM_wreg(MEM_wreg));
 
 	// MEM
-	dm_4k dm(.addr(MEM_ALU_res), .din(MEM_rdata2), .we(MemWrite), .re(MemRead), .clk(clk), .dout(MEM_rdata));
+	dm_4k dm(.addr(MEM_ALU_res), .din(MEM_rdata2), .we(MEM_MemWrite), .re(MEM_MemRead), .clk(clk), .dout(MEM_rdata));
 
 	// MEM/WB
-	MEM_WB MEM_WB(.clk(clk), .MEM_rdata(MEM_rdata), .MEM_ALU_res(MEM_ALU_res),
+	MEM_WB MEM_WB(.clk(clk), .MEM_RegDst(MEM_RegDst), .MEM_RegWrite(MEM_RegWrite),
+				  .MEM_rdata(MEM_rdata), .MEM_ALU_res(MEM_ALU_res),
+				  .WB_RegDst(WB_RegDst), .WB_RegWrite(WB_RegWrite),
 				  .WB_rdata(WB_rdata), .WB_ALU_res(WB_ALU_res));
 
 	// WB
-	mux2 #(32) RegSrc_mux(.a(WB_ALU_res), .b(WB_rdata), .s(MemtoReg), .dout(wdata));
+	mux2 #(32) RegSrc_mux(.a(WB_ALU_res), .b(WB_rdata), .s(WB_RegDst), .dout(wdata));
 
 endmodule
