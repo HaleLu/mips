@@ -16,6 +16,7 @@ module mips(clk, rst) ;
 	wire	[4:0]	EX_rd;
 	wire	[4:0]	EX_wreg;
 	wire	[4:0]	MEM_wreg;
+	wire	[4:0]	WB_wreg;
 	wire	[31:0]	ID_rdata1;
 	wire	[31:0]	ID_rdata2;
 	wire	[31:0]	EX_rdata1;
@@ -69,21 +70,21 @@ module mips(clk, rst) ;
 	wire			EX_Jump;
 
 	// IF
-	mux2 #(32) br_mux(.a(IF_pc_plus_4), .b(MEM_pc_br), .s(MEM_Branch & MEM_zero), .dout(pc_tmp));
-	mux2 #(32) j_mux(.a({pc_plus_4[31:28],ins[25:0],2'b00}), .b(pc_tmp), .s(Jump), .dout(pc_next));
+	mux2 #(32) br_mux(.a(IF_pc_plus_4), .b(MEM_pc_br), .s(MEM_Branch & MEM_zero), .dout(pc_next));
+//	mux2 #(32) j_mux(.a({MEM_pc_plus_4[31:28],ins[25:0],2'b00}), .b(pc_tmp), .s(Jump), .dout(pc_next));
 	pc pc(.clk(clk), .rst(rst), .data(pc_next), .dout(pc_now));
-	assign IF_pc_plus_4 = pc_now + 4;
+	assign IF_pc_plus_4 = pc_now + 4;	
 	im_4k im(.addr(pc_now[11:2]), .dout(IF_ins));
 
 	// IF/ID
 	IF_ID IF_ID(.clk(clk), .IF_pc_plus_4(IF_pc_plus_4), .IF_ins(IF_ins), .ID_pc_plus_4(ID_pc_plus_4), .ID_ins(ID_ins));
 
 	// ID
-	ctrl ctrl(	.op(ID_ins[31:26]), .RegDst(ID_RegDst), RegWrite(ID_RegWrite), .ALUSrc(ID_ALUSrc),
+	ctrl ctrl(	.op(ID_ins[31:26]), .RegDst(ID_RegDst), .RegWrite(ID_RegWrite), .ALUSrc(ID_ALUSrc),
 				.MemRead(ID_MemRead), .MemWrite(ID_MemWrite), .MemtoReg(ID_MemtoReg),
 				.Jump(Jump), .Branch(ID_Branch), .ALUOp(ID_ALUOp));
 	regheap regheap(.clk(clk), .we(WB_RegWrite), .rreg1(ID_ins[25:21]), .rreg2(ID_ins[20:16]),
-					.wreg(wreg), .wdata(wdata), .rdata1(ID_rdata1), .rdata2(ID_rdata2));
+					.wreg(WB_wreg), .wdata(wdata), .rdata1(ID_rdata1), .rdata2(ID_rdata2));
 	ext #(16) ext(.din(ID_ins[15:0]), .dout(ID_const_or_addr));
 
 	// ID/EX
@@ -100,11 +101,11 @@ module mips(clk, rst) ;
 
 	// EX
 	alu pc_alu(.op(4'b0010), .a(EX_pc_plus_4), .b({EX_const_or_addr[29:0], 2'b00}), .dout(EX_pc_br));
-	ALUctrl ALUctrl(.ALUOp(ALUOp), .funct(EX_const_or_addr[5:0]), .op(op));
+	ALUctrl ALUctrl(.ALUOp(EX_ALUOp), .funct(EX_const_or_addr[5:0]), .op(op));
 	assign ALUSrc_data1 = EX_rdata1;
-	mux2 #(32) ALUSrc_mux(.a(EX_rdata2), .b(EX_const_or_addr), .s(ALUSrc), .dout(ALUSrc_data2));
+	mux2 #(32) ALUSrc_mux(.a(EX_rdata2), .b(EX_const_or_addr), .s(EX_ALUSrc), .dout(ALUSrc_data2));
 	alu alu(.op(op), .a(ALUSrc_data1), .b(ALUSrc_data2), .zero(EX_zero), .dout(EX_ALU_res));
-	mux2 #(5) wreg_mux(.a(EX_rt), .b(EX_rd), .s(RegDst), .dout(EX_wreg));
+	mux2 #(5) wreg_mux(.a(EX_rt), .b(EX_rd), .s(EX_RegDst), .dout(EX_wreg));
 	
 	// EX/MEM
 	EX_MEM EX_MEM(.clk(clk), .EX_RegDst(EX_RegDst), .EX_RegWrite(EX_RegWrite),
@@ -121,9 +122,9 @@ module mips(clk, rst) ;
 
 	// MEM/WB
 	MEM_WB MEM_WB(.clk(clk), .MEM_RegDst(MEM_RegDst), .MEM_RegWrite(MEM_RegWrite),
-				  .MEM_rdata(MEM_rdata), .MEM_ALU_res(MEM_ALU_res),
+				  .MEM_rdata(MEM_rdata), .MEM_ALU_res(MEM_ALU_res), .MEM_wreg(MEM_wreg),
 				  .WB_RegDst(WB_RegDst), .WB_RegWrite(WB_RegWrite),
-				  .WB_rdata(WB_rdata), .WB_ALU_res(WB_ALU_res));
+				  .WB_rdata(WB_rdata), .WB_ALU_res(WB_ALU_res), .WB_wreg(WB_wreg));
 
 	// WB
 	mux2 #(32) RegSrc_mux(.a(WB_ALU_res), .b(WB_rdata), .s(WB_RegDst), .dout(wdata));

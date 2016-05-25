@@ -47,6 +47,23 @@ module ID_EX(clk, ID_RegDst, ID_RegWrite, ID_Branch, ID_MemRead, ID_MemWrite, ID
 	reg		[4:0]	rt;
 	reg		[4:0]	rd;
 
+	initial begin
+		RegDst			=	0;
+		RegWrite		=	0;
+		Branch			=	0;
+		MemRead			=	0;
+		MemWrite		=	0;
+		ALUSrc			=	0;
+		MemtoReg		=	0;
+		ALUOp			=	0;
+		pc_plus_4		=	0;
+		rdata1			=	0;
+		rdata2			=	0;
+		const_or_addr	=	0;
+		rt				=	0;
+		rd				=	0;
+	end
+
 	always @(posedge clk) begin
 		RegDst			<=	ID_RegDst;
 		RegWrite		<=	ID_RegWrite;
@@ -75,7 +92,7 @@ module ID_EX(clk, ID_RegDst, ID_RegWrite, ID_Branch, ID_MemRead, ID_MemWrite, ID
 	assign EX_pc_plus_4		=	pc_plus_4;
 	assign EX_rdata1		=	rdata1;
 	assign EX_rdata2		=	rdata2;
-	assign EX_const_or_addr	=	const_or_addr
+	assign EX_const_or_addr	=	const_or_addr;
 	assign EX_rt			=	rt;
 	assign EX_rd			=	rd;
 endmodule

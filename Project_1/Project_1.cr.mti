@@ -1,16 +1,16 @@
-D:/Code/Repos/mips/Project_1/datapath/dm.v {1 {vlog -work work -stats=none D:/Code/Repos/mips/Project_1/datapath/dm.v
-Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
--- Compiling module dm_4k
-
-Top level modules:
-	dm_4k
-
-} {} {}} D:/Code/Repos/mips/Project_1/datapath/ext.v {1 {vlog -work work -stats=none D:/Code/Repos/mips/Project_1/datapath/ext.v
+D:/Code/Repos/mips/Project_1/datapath/ext.v {1 {vlog -work work -stats=none D:/Code/Repos/mips/Project_1/datapath/ext.v
 Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
 -- Compiling module ext
 
 Top level modules:
 	ext
+
+} {} {}} D:/Code/Repos/mips/Project_1/datapath/dm.v {1 {vlog -work work -stats=none D:/Code/Repos/mips/Project_1/datapath/dm.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module dm_4k
+
+Top level modules:
+	dm_4k
 
 } {} {}} D:/Code/Repos/mips/Project_1/control/ALUctrl.v {1 {vlog -work work -stats=none D:/Code/Repos/mips/Project_1/control/ALUctrl.v
 Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
@@ -26,6 +26,13 @@ Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 
 Top level modules:
 	mux2
 
+} {} {}} D:/Code/Repos/mips/Project_1/datapath/im.v {1 {vlog -work work -stats=none D:/Code/Repos/mips/Project_1/datapath/im.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module im_4k
+
+Top level modules:
+	im_4k
+
 } {} {}} D:/Code/Repos/mips/Project_1/datapath/alu.v {1 {vlog -work work -stats=none D:/Code/Repos/mips/Project_1/datapath/alu.v
 Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
 -- Compiling module alu
@@ -40,12 +47,12 @@ Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 
 Top level modules:
 	testbench
 
-} {} {}} D:/Code/Repos/mips/Project_1/datapath/im.v {1 {vlog -work work -stats=none D:/Code/Repos/mips/Project_1/datapath/im.v
+} {} {}} D:/Code/Repos/mips/Project_1/datapath/pc.v {1 {vlog -work work -stats=none D:/Code/Repos/mips/Project_1/datapath/pc.v
 Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
--- Compiling module im_4k
+-- Compiling module pc
 
 Top level modules:
-	im_4k
+	pc
 
 } {} {}} D:/Code/Repos/mips/Project_1/control/ctrl.v {1 {vlog -work work -stats=none D:/Code/Repos/mips/Project_1/control/ctrl.v
 Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
@@ -60,13 +67,6 @@ Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 
 
 Top level modules:
 	mips
-
-} {} {}} D:/Code/Repos/mips/Project_1/datapath/pc.v {1 {vlog -work work -stats=none D:/Code/Repos/mips/Project_1/datapath/pc.v
-Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
--- Compiling module pc
-
-Top level modules:
-	pc
 
 } {} {}} D:/Code/Repos/mips/Project_1/datapath/regheap.v {1 {vlog -work work -stats=none D:/Code/Repos/mips/Project_1/datapath/regheap.v
 Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015

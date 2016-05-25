@@ -10,6 +10,11 @@ module IF_ID(clk, IF_pc_plus_4, IF_ins,
 	reg		[31:0]	pc_plus_4;
 	reg		[31:0]	ins;
 
+	initial begin
+		pc_plus_4	= 0;
+		ins			= 0;
+	end
+
 	always @(posedge clk) begin
 		pc_plus_4	<=	IF_pc_plus_4;
 		ins			<=	IF_ins;

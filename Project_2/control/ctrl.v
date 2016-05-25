@@ -16,6 +16,18 @@ module ctrl(op, RegDst, RegWrite, ALUSrc, MemRead, MemWrite, MemtoReg, Jump, Bra
 				BEQ			= 6'b000100,
 				J			= 6'b000010;
 
+	initial begin
+		RegDst = 0;
+		ALUSrc = 0;
+		MemtoReg = 0;
+		RegWrite = 0;
+		MemRead = 0;
+		MemWrite = 0;
+		Jump = 1;
+		Branch = 0;
+		ALUOp = 2'b00;
+	end
+
 	always @(*) begin
 		case (op)
 			R: begin

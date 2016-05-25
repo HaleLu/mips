@@ -1,5 +1,5 @@
 module EX_MEM(clk, EX_RegDst , EX_RegWrite , EX_Branch , EX_MemRead , EX_MemWrite , EX_pc_br , EX_zero , EX_ALU_res , EX_rdata2 , EX_wreg, 
-				   MEM_RegDst, MEM_RegWrite, MEM_Branch, MEM_MemRead, MEM_MemWrite, MEM_pc_br, MEM_zero, MEM_ALU_res, MEM_rdata2, MEM_wreg)
+				   MEM_RegDst, MEM_RegWrite, MEM_Branch, MEM_MemRead, MEM_MemWrite, MEM_pc_br, MEM_zero, MEM_ALU_res, MEM_rdata2, MEM_wreg);
 	input			clk;
 	
 	input			EX_RegDst;
@@ -34,6 +34,19 @@ module EX_MEM(clk, EX_RegDst , EX_RegWrite , EX_Branch , EX_MemRead , EX_MemWrit
 	reg		[31:0]	ALU_res;
 	reg		[31:0]	rdata2;
 	reg		[4:0]	wreg;
+
+	initial begin
+		RegDst		=	0;
+		RegWrite	=	0;
+		Branch		=	0;
+		MemRead		=	0;
+		MemWrite	=	0;
+		pc_br		=	0;
+		zero		=	0;
+		ALU_res		=	0;
+		rdata2		=	0;
+		wreg		=	0;
+	end
 
 	always @(posedge clk) begin
 		RegDst		<=	EX_RegDst;
