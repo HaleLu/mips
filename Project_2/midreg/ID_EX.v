@@ -1,5 +1,5 @@
-module ID_EX(clk, ID_RegDst, ID_RegWrite, ID_Branch, ID_MemRead, ID_MemWrite, ID_ALUSrc, ID_MemtoReg, ID_ALUOp, ID_pc_plus_4, ID_rdata1, ID_rdata2, ID_const_or_addr, ID_rt, ID_rd, 
-				  EX_RegDst, EX_RegWrite, EX_Branch, EX_MemRead, EX_MemWrite, EX_ALUSrc, EX_MemtoReg, EX_ALUOp, EX_pc_plus_4, EX_rdata1, EX_rdata2, EX_const_or_addr, EX_rt, EX_rd);
+module ID_EX(clk, ID_RegDst, ID_RegWrite, ID_Branch, ID_MemRead, ID_MemWrite, ID_ALUSrc, ID_MemtoReg, ID_ALUOp, ID_pc_plus_4, ID_rdata1, ID_rdata2, ID_const_or_addr, ID_rs, ID_rt, ID_rd, 
+				  EX_RegDst, EX_RegWrite, EX_Branch, EX_MemRead, EX_MemWrite, EX_ALUSrc, EX_MemtoReg, EX_ALUOp, EX_pc_plus_4, EX_rdata1, EX_rdata2, EX_const_or_addr, EX_rs, EX_rt, EX_rd);
 	input			clk;
 
 	input			ID_RegDst;
@@ -14,6 +14,7 @@ module ID_EX(clk, ID_RegDst, ID_RegWrite, ID_Branch, ID_MemRead, ID_MemWrite, ID
 	input	[31:0]	ID_rdata1;
 	input	[31:0]	ID_rdata2;
 	input	[31:0]	ID_const_or_addr;
+	input	[4:0]	ID_rs;
 	input	[4:0]	ID_rt;
 	input	[4:0]	ID_rd;
 
@@ -29,6 +30,7 @@ module ID_EX(clk, ID_RegDst, ID_RegWrite, ID_Branch, ID_MemRead, ID_MemWrite, ID
 	output	[31:0]	EX_rdata1;
 	output	[31:0]	EX_rdata2;
 	output	[31:0]	EX_const_or_addr;
+	output	[4:0]	EX_rs;
 	output	[4:0]	EX_rt;
 	output	[4:0]	EX_rd;
 
@@ -44,6 +46,7 @@ module ID_EX(clk, ID_RegDst, ID_RegWrite, ID_Branch, ID_MemRead, ID_MemWrite, ID
 	reg		[31:0]	rdata1;
 	reg		[31:0]	rdata2;
 	reg		[31:0]	const_or_addr;
+	reg		[4:0]	rs;
 	reg		[4:0]	rt;
 	reg		[4:0]	rd;
 
@@ -60,6 +63,7 @@ module ID_EX(clk, ID_RegDst, ID_RegWrite, ID_Branch, ID_MemRead, ID_MemWrite, ID
 		rdata1			=	0;
 		rdata2			=	0;
 		const_or_addr	=	0;
+		rs				=	0;
 		rt				=	0;
 		rd				=	0;
 	end
@@ -77,6 +81,7 @@ module ID_EX(clk, ID_RegDst, ID_RegWrite, ID_Branch, ID_MemRead, ID_MemWrite, ID
 		rdata1			<=	ID_rdata1;
 		rdata2			<=	ID_rdata2;
 		const_or_addr	<=	ID_const_or_addr;
+		rs				<=	ID_rs;
 		rt				<=	ID_rt;
 		rd				<=	ID_rd;
 	end
@@ -93,6 +98,7 @@ module ID_EX(clk, ID_RegDst, ID_RegWrite, ID_Branch, ID_MemRead, ID_MemWrite, ID
 	assign EX_rdata1		=	rdata1;
 	assign EX_rdata2		=	rdata2;
 	assign EX_const_or_addr	=	const_or_addr;
+	assign EX_rs			=	rs;
 	assign EX_rt			=	rt;
 	assign EX_rd			=	rd;
 endmodule

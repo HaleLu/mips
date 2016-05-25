@@ -76,7 +76,7 @@ op的说明：
 输出接口：op（4位，对应的 alu 运算符编码）
 
 #### ctrl.v
-模块名：ALUctrl  
+模块名：ctrl  
 说明：算逻部件控制器  
 输入接口：op（6位，指令的31-26位）  
 输出接口：RegDst, RegWrite, ALUSrc, MemRead, MemWrite, MemtoReg, Jump, Branch, ALUOp（各种控制信号，其中 ALUOp 为2位）

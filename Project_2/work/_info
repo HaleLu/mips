@@ -9,7 +9,7 @@ z2
 cModel Technology
 dD:/Code/Repos/mips/Project_1
 valu
-Z0 !s110 1464167805
+Z0 !s110 1464150634
 !i10b 1
 !s100 i2g6S2eQY958M=[_QR@`I2
 Ie?X[4bP`A5ITEd6?RgKkf1
@@ -23,7 +23,7 @@ Z3 OP;L;10.4a;61
 r1
 !s85 0
 31
-Z4 !s108 1464167805.000000
+Z4 !s108 1464150634.000000
 !s107 D:/Code/Repos/mips/Project_2/datapath/alu.v|
 !s90 -reportprogress|300|-work|work|-stats=none|D:/Code/Repos/mips/Project_2/datapath/alu.v|
 !s101 -O0
@@ -94,7 +94,7 @@ R4
 !i113 1
 R5
 vEX_MEM
-Z6 !s110 1464167806
+Z6 !s110 1464150635
 !i10b 1
 !s100 [c7JY[`M7ebZUCY;2b5ok2
 IkeLfPmHF;3>TFn:>MYWSP3
@@ -108,7 +108,7 @@ R3
 r1
 !s85 0
 31
-Z7 !s108 1464167806.000000
+Z7 !s108 1464150635.000000
 !s107 D:/Code/Repos/mips/Project_2/midreg/EX_MEM.v|
 !s90 -reportprogress|300|-work|work|-stats=none|D:/Code/Repos/mips/Project_2/midreg/EX_MEM.v|
 !s101 -O0
@@ -139,11 +139,11 @@ R5
 vID_EX
 R6
 !i10b 1
-!s100 6ne_bFB<NAAgP>2mEk9eA1
-IVTD5ZY`fFE0D;jLF2=jTQ0
+!s100 JL;P:]:o`KMl:hSoNmd3_3
+IDg`^=Q3_fWR0ED0^kaO@E0
 R1
 R2
-w1464163375
+w1464150549
 8D:/Code/Repos/mips/Project_2/midreg/ID_EX.v
 FD:/Code/Repos/mips/Project_2/midreg/ID_EX.v
 L0 1
@@ -181,7 +181,7 @@ R7
 R5
 n@i@f_@i@d
 vim_4k
-R0
+R6
 !i10b 1
 !s100 3o7GhE@4miohRmd6CU02>1
 I5QdIRhm;jk>18?;jZZ>z20
@@ -195,7 +195,7 @@ R3
 r1
 !s85 0
 31
-R4
+R7
 !s107 D:/Code/Repos/mips/Project_2/datapath/im.v|
 !s90 -reportprogress|300|-work|work|-stats=none|D:/Code/Repos/mips/Project_2/datapath/im.v|
 !s101 -O0
@@ -224,13 +224,13 @@ R7
 R5
 n@m@e@m_@w@b
 vmips
-!s110 1464167832
+R0
 !i10b 1
-!s100 2^FczoRT3LZ6Xo<Ve^fYX2
-I69XD<L@k`f4:=7F892j0B2
+!s100 mOkQ9fX=iASf0=TG:>G`_0
+I;;H3FW9eHb@fze2a@_>H50
 R1
 R2
-w1464167808
+w1464150394
 8D:/Code/Repos/mips/Project_2/mips.v
 FD:/Code/Repos/mips/Project_2/mips.v
 L0 1
@@ -238,14 +238,14 @@ R3
 r1
 !s85 0
 31
-!s108 1464167832.000000
+R4
 !s107 D:/Code/Repos/mips/Project_2/mips.v|
 !s90 -reportprogress|300|-work|work|-stats=none|D:/Code/Repos/mips/Project_2/mips.v|
 !s101 -O0
 !i113 1
 R5
 vmux2
-R0
+R6
 !i10b 1
 !s100 ^^IkW8eGDF5iGN4if2nz42
 IIHF68W@2>oEOBS0z7]11e1
@@ -259,14 +259,14 @@ R3
 r1
 !s85 0
 31
-R4
+R7
 !s107 D:/Code/Repos/mips/Project_2/datapath/mux.v|
 !s90 -reportprogress|300|-work|work|-stats=none|D:/Code/Repos/mips/Project_2/datapath/mux.v|
 !s101 -O0
 !i113 1
 R5
 vpc
-R0
+R6
 !i10b 1
 !s100 8kGFPU]V@oPfH2l@?_UkH3
 IZiAc1nzB5iMBkkj=X>7cD0
@@ -280,14 +280,14 @@ R3
 r1
 !s85 0
 31
-R4
+R7
 !s107 D:/Code/Repos/mips/Project_2/datapath/pc.v|
 !s90 -reportprogress|300|-work|work|-stats=none|D:/Code/Repos/mips/Project_2/datapath/pc.v|
 !s101 -O0
 !i113 1
 R5
 vregheap
-R0
+R6
 !i10b 1
 !s100 ^30>5`AKMP?nXdg<IBHU`3
 IZNdlYj8SMR[?QoFP_1J5e1
@@ -301,7 +301,7 @@ R3
 r1
 !s85 0
 31
-R4
+R7
 !s107 D:/Code/Repos/mips/Project_2/datapath/regheap.v|
 !s90 -reportprogress|300|-work|work|-stats=none|D:/Code/Repos/mips/Project_2/datapath/regheap.v|
 !s101 -O0

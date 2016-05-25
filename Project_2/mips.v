@@ -12,6 +12,7 @@ module mips(clk, rst) ;
 	wire	[31:0]	MEM_pc_br;
 	wire	[31:0]	IF_ins;
 	wire	[31:0]	ID_ins;
+	wire	[4:0]	EX_rs;
 	wire	[4:0]	EX_rt;
 	wire	[4:0]	EX_rd;
 	wire	[4:0]	EX_wreg;
@@ -92,12 +93,12 @@ module mips(clk, rst) ;
 				.ID_Branch(ID_Branch), .ID_MemRead(ID_MemRead), .ID_MemWrite(ID_MemWrite),
 				.ID_ALUSrc(ID_ALUSrc), .ID_MemtoReg(ID_MemtoReg), .ID_ALUOp(ID_ALUOp),
 				.ID_pc_plus_4(ID_pc_plus_4), .ID_rdata1(ID_rdata1), .ID_rdata2(ID_rdata2),
-				.ID_const_or_addr(ID_const_or_addr), .ID_rt(ID_ins[20:16]), .ID_rd(ID_ins[15:11]),
+				.ID_const_or_addr(ID_const_or_addr), .ID_rs(ID_ins[25:21]), .ID_rt(ID_ins[20:16]), .ID_rd(ID_ins[15:11]),
 				.EX_RegDst(EX_RegDst), .EX_RegWrite(EX_RegWrite),
 				.EX_Branch(EX_Branch), .EX_MemRead(EX_MemRead), .EX_MemWrite(EX_MemWrite),
 				.EX_ALUSrc(EX_ALUSrc), .EX_MemtoReg(EX_MemtoReg), .EX_ALUOp(EX_ALUOp),
 				.EX_pc_plus_4(EX_pc_plus_4), .EX_rdata1(EX_rdata1), .EX_rdata2(EX_rdata2),
-				.EX_const_or_addr(EX_const_or_addr), .EX_rt(EX_rt), .EX_rd(EX_rd));
+				.EX_const_or_addr(EX_const_or_addr), .EX_rs(EX_rs), .EX_rt(EX_rt), .EX_rd(EX_rd));
 
 	// EX
 	alu pc_alu(.op(4'b0010), .a(EX_pc_plus_4), .b({EX_const_or_addr[29:0], 2'b00}), .dout(EX_pc_br));
