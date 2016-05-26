@@ -71,8 +71,8 @@ module mips(clk, rst) ;
 	wire			EX_Jump;
 
 	// IF
-	mux2 #(32) br_mux(.a(IF_pc_plus_4), .b(MEM_pc_br), .s(MEM_Branch & MEM_zero), .dout(pc_next));
-//	mux2 #(32) j_mux(.a({MEM_pc_plus_4[31:28],ins[25:0],2'b00}), .b(pc_tmp), .s(Jump), .dout(pc_next));
+	mux2 #(32) br_mux(.a(IF_pc_plus_4), .b(MEM_pc_br), .s(MEM_Branch & MEM_zero), .dout(pc_tmp));
+	mux2 #(32) j_mux(.a({IF_pc_plus_4[31:28],ID_ins[25:0],2'b00}), .b(pc_tmp), .s(Jump), .dout(pc_next));
 	pc pc(.clk(clk), .rst(rst), .data(pc_next), .dout(pc_now));
 	assign IF_pc_plus_4 = pc_now + 4;	
 	im_4k im(.addr(pc_now[11:2]), .dout(IF_ins));
