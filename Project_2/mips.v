@@ -20,7 +20,9 @@ module mips(clk, rst) ;
 	wire	[4:0]	WB_wreg;
 	wire	[31:0]	ID_rdata1;
 	wire	[31:0]	ID_rdata2;
+	wire	[31:0]	EX_rtemp1;
 	wire	[31:0]	EX_rdata1;
+	wire	[31:0]	EX_rtemp2;
 	wire	[31:0]	EX_rdata2;
 	wire	[31:0]	MEM_rdata2;
 	wire	[31:0]	ID_const_or_addr;
@@ -70,6 +72,9 @@ module mips(clk, rst) ;
 	wire			ID_Jump;
 	wire			EX_Jump;
 
+	wire	[1:0]	ForwardA;
+	wire	[1:0]	ForwardB;
+
 	// IF
 	mux2 #(32) br_mux(.a(IF_pc_plus_4), .b(MEM_pc_br), .s(MEM_Branch & MEM_zero), .dout(pc_tmp));
 	mux2 #(32) j_mux(.a({IF_pc_plus_4[31:28],ID_ins[25:0],2'b00}), .b(pc_tmp), .s(Jump), .dout(pc_next));
@@ -97,16 +102,21 @@ module mips(clk, rst) ;
 				.EX_RegDst(EX_RegDst), .EX_RegWrite(EX_RegWrite),
 				.EX_Branch(EX_Branch), .EX_MemRead(EX_MemRead), .EX_MemWrite(EX_MemWrite),
 				.EX_ALUSrc(EX_ALUSrc), .EX_MemtoReg(EX_MemtoReg), .EX_ALUOp(EX_ALUOp),
-				.EX_pc_plus_4(EX_pc_plus_4), .EX_rdata1(EX_rdata1), .EX_rdata2(EX_rdata2),
+				.EX_pc_plus_4(EX_pc_plus_4), .EX_rdata1(EX_rtemp1), .EX_rdata2(EX_rtemp2),
 				.EX_const_or_addr(EX_const_or_addr), .EX_rs(EX_rs), .EX_rt(EX_rt), .EX_rd(EX_rd));
 
 	// EX
 	alu pc_alu(.op(4'b0010), .a(EX_pc_plus_4), .b({EX_const_or_addr[29:0], 2'b00}), .dout(EX_pc_br));
+	mux3 #(32) ALUSrc1_mux(.a(EX_rtemp1), .b(WB_rdata), .c(MEM_rdata), .s(ForwardA), .dout(EX_rdata1));
+	mux3 #(32) ALUSrc2_mux(.a(EX_rtemp2), .b(WB_rdata), .c(MEM_rdata), .s(ForwardB), .dout(EX_rdata2));
 	ALUctrl ALUctrl(.ALUOp(EX_ALUOp), .funct(EX_const_or_addr[5:0]), .op(op));
 	assign ALUSrc_data1 = EX_rdata1;
 	mux2 #(32) ALUSrc_mux(.a(EX_rdata2), .b(EX_const_or_addr), .s(EX_ALUSrc), .dout(ALUSrc_data2));
 	alu alu(.op(op), .a(ALUSrc_data1), .b(ALUSrc_data2), .zero(EX_zero), .dout(EX_ALU_res));
 	mux2 #(5) wreg_mux(.a(EX_rt), .b(EX_rd), .s(EX_RegDst), .dout(EX_wreg));
+
+	fu forwardingUnit(.EX_rs(EX_rt), .EX_rt(EX_rt), .MEM_RegWrite(MEM_RegWrite), .MEM_rd(MEM_rd),
+					  .WB_RegWrite(WB_RegWrite), .WB_rd(WB_rd), .ForwardA(ForwardA), .ForwardB(ForwardB));
 	
 	// EX/MEM
 	EX_MEM EX_MEM(.clk(clk), .EX_RegDst(EX_RegDst), .EX_RegWrite(EX_RegWrite),
