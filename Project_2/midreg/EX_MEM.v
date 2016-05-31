@@ -1,8 +1,8 @@
-module EX_MEM(clk, EX_RegDst , EX_RegWrite , EX_Branch , EX_MemRead , EX_MemWrite , EX_pc_br , EX_zero , EX_ALU_res , EX_rdata2 , EX_wreg, 
-				   MEM_RegDst, MEM_RegWrite, MEM_Branch, MEM_MemRead, MEM_MemWrite, MEM_pc_br, MEM_zero, MEM_ALU_res, MEM_rdata2, MEM_wreg);
+module EX_MEM(clk, EX_MemtoReg , EX_RegWrite , EX_Branch , EX_MemRead , EX_MemWrite , EX_pc_br , EX_zero , EX_ALU_res , EX_rdata2 , EX_wreg, 
+				   MEM_MemtoReg, MEM_RegWrite, MEM_Branch, MEM_MemRead, MEM_MemWrite, MEM_pc_br, MEM_zero, MEM_ALU_res, MEM_rdata2, MEM_wreg);
 	input			clk;
 	
-	input			EX_RegDst;
+	input			EX_MemtoReg;
 	input			EX_RegWrite;
 	input			EX_Branch;
 	input			EX_MemRead;
@@ -13,7 +13,7 @@ module EX_MEM(clk, EX_RegDst , EX_RegWrite , EX_Branch , EX_MemRead , EX_MemWrit
 	input	[31:0]	EX_rdata2;
 	input	[4:0]	EX_wreg;
 
-	output			MEM_RegDst;
+	output			MEM_MemtoReg;
 	output			MEM_RegWrite;
 	output			MEM_Branch;
 	output			MEM_MemRead;
@@ -24,7 +24,7 @@ module EX_MEM(clk, EX_RegDst , EX_RegWrite , EX_Branch , EX_MemRead , EX_MemWrit
 	output	[31:0]	MEM_rdata2;
 	output	[4:0]	MEM_wreg;
 
-	reg				RegDst;
+	reg				MemtoReg;
 	reg				RegWrite;
 	reg				Branch;
 	reg				MemRead;
@@ -36,7 +36,7 @@ module EX_MEM(clk, EX_RegDst , EX_RegWrite , EX_Branch , EX_MemRead , EX_MemWrit
 	reg		[4:0]	wreg;
 
 	initial begin
-		RegDst		=	0;
+		MemtoReg	=	0;
 		RegWrite	=	0;
 		Branch		=	0;
 		MemRead		=	0;
@@ -49,7 +49,7 @@ module EX_MEM(clk, EX_RegDst , EX_RegWrite , EX_Branch , EX_MemRead , EX_MemWrit
 	end
 
 	always @(posedge clk) begin
-		RegDst		<=	EX_RegDst;
+		MemtoReg	<=	EX_MemtoReg;
 		RegWrite	<=	EX_RegWrite;
 		Branch		<=	EX_Branch;
 		MemRead		<=	EX_MemRead;
@@ -61,7 +61,7 @@ module EX_MEM(clk, EX_RegDst , EX_RegWrite , EX_Branch , EX_MemRead , EX_MemWrit
 		wreg		<=	EX_wreg;
 	end
 
-	assign MEM_RegDst	=	RegDst;
+	assign MEM_MemtoReg	=	MemtoReg;
 	assign MEM_RegWrite	=	RegWrite;
 	assign MEM_Branch	=	Branch;
 	assign MEM_MemRead	=	MemRead;

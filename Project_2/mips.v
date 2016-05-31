@@ -38,15 +38,25 @@ module mips(clk, rst) ;
 	wire	[31:0]	WB_rdata;
 	wire	[31:0]	wdata;
 	wire	[3:0]	op;
+	wire			Jump;
+
+	wire			RegDst;
+	wire			RegWrite;
+	wire			ALUSrc;
+	wire			MemRead;
+	wire			MemWrite;
+	wire			MemtoReg;
+	wire			Branch;
+	wire	[1:0]	ALUOp;
 
 	// WB_Reg
-	wire			ID_RegDst;
+	wire			ID_MemtoReg;
 	wire			ID_RegWrite;
-	wire			EX_RegDst;
+	wire			EX_MemtoReg;
 	wire			EX_RegWrite;
-	wire			MEM_RegDst;
+	wire			MEM_MemtoReg;
 	wire			MEM_RegWrite;
-	wire			WB_RegDst;
+	wire			WB_MemtoReg;
 	wire			WB_RegWrite;
 
 	// M_Reg
@@ -62,10 +72,10 @@ module mips(clk, rst) ;
 
 	// EX_Reg
 	wire			ID_ALUSrc;
-	wire			ID_MemtoReg;
+	wire			ID_RegDst;
 	wire	[1:0]	ID_ALUOp;
 	wire			EX_ALUSrc;
-	wire			EX_MemtoReg;
+	wire			EX_RegDst;
 	wire	[1:0]	EX_ALUOp;
 
 
@@ -75,23 +85,30 @@ module mips(clk, rst) ;
 	wire	[1:0]	ForwardA;
 	wire	[1:0]	ForwardB;
 
+	wire			Stall;
+
 	// IF
 	mux2 #(32) br_mux(.a(IF_pc_plus_4), .b(MEM_pc_br), .s(MEM_Branch & MEM_zero), .dout(pc_tmp));
-	mux2 #(32) j_mux(.a({IF_pc_plus_4[31:28],ID_ins[25:0],2'b00}), .b(pc_tmp), .s(Jump), .dout(pc_next));
-	pc pc(.clk(clk), .rst(rst), .data(pc_next), .dout(pc_now));
+	mux2 #(32) j_mux(.a(pc_tmp), .b({ID_pc_plus_4[31:28],ID_ins[25:0],2'b00}), .s(Jump), .dout(pc_next));
+	pc pc(.clk(clk), .rst(rst), .en(Stall ? 0 : 1), .data(pc_next), .dout(pc_now));
 	assign IF_pc_plus_4 = pc_now + 4;	
 	im_4k im(.addr(pc_now[11:2]), .dout(IF_ins));
 
 	// IF/ID
-	IF_ID IF_ID(.clk(clk), .IF_pc_plus_4(IF_pc_plus_4), .IF_ins(IF_ins), .ID_pc_plus_4(ID_pc_plus_4), .ID_ins(ID_ins));
+	IF_ID IF_ID(.clk(clk), .en(Stall ? 0 : 1), .IF_pc_plus_4(IF_pc_plus_4), .IF_ins(IF_ins), .ID_pc_plus_4(ID_pc_plus_4), .ID_ins(ID_ins));
 
 	// ID
-	ctrl ctrl(	.op(ID_ins[31:26]), .RegDst(ID_RegDst), .RegWrite(ID_RegWrite), .ALUSrc(ID_ALUSrc),
-				.MemRead(ID_MemRead), .MemWrite(ID_MemWrite), .MemtoReg(ID_MemtoReg),
-				.Jump(Jump), .Branch(ID_Branch), .ALUOp(ID_ALUOp));
+	ctrl ctrl(	.op(ID_ins[31:26]), .RegDst(RegDst), .RegWrite(RegWrite), .ALUSrc(ALUSrc),
+				.MemRead(MemRead), .MemWrite(MemWrite), .MemtoReg(MemtoReg),
+				.Jump(Jump), .Branch(Branch), .ALUOp(ALUOp));
 	regheap regheap(.clk(clk), .we(WB_RegWrite), .rreg1(ID_ins[25:21]), .rreg2(ID_ins[20:16]),
 					.wreg(WB_wreg), .wdata(wdata), .rdata1(ID_rdata1), .rdata2(ID_rdata2));
 	ext #(16) ext(.din(ID_ins[15:0]), .dout(ID_const_or_addr));
+
+	// Hazard Detection Unit
+	hdu hdu(.EX_MemRead(EX_MemRead), .EX_rt(EX_rt), .ID_rs(ID_ins[25:21]), .ID_rt(ID_ins[20:16]), .stall(Stall));
+	mux2 #(9) stall_mux(.a({RegDst,RegWrite,ALUSrc,MemRead,MemWrite,MemtoReg,Branch,ALUOp}), .b(9'b0_0000_0000), .s(Stall), 
+						.dout({ID_RegDst,ID_RegWrite,ID_ALUSrc,ID_MemRead,ID_MemWrite,ID_MemtoReg,ID_Branch,ID_ALUOp}));
 
 	// ID/EX
 	ID_EX ID_EX(.clk(clk), .ID_RegDst(ID_RegDst), .ID_RegWrite(ID_RegWrite),
@@ -106,24 +123,26 @@ module mips(clk, rst) ;
 				.EX_const_or_addr(EX_const_or_addr), .EX_rs(EX_rs), .EX_rt(EX_rt), .EX_rd(EX_rd));
 
 	// EX
-	alu pc_alu(.op(4'b0010), .a(EX_pc_plus_4), .b({EX_const_or_addr[29:0], 2'b00}), .dout(EX_pc_br));
-	mux3 #(32) ALUSrc1_mux(.a(EX_rtemp1), .b(WB_rdata), .c(MEM_rdata), .s(ForwardA), .dout(EX_rdata1));
-	mux3 #(32) ALUSrc2_mux(.a(EX_rtemp2), .b(WB_rdata), .c(MEM_rdata), .s(ForwardB), .dout(EX_rdata2));
+	assign EX_pc_br = EX_pc_plus_4 + {EX_const_or_addr[29:0], 2'b00};
+	//alu pc_alu(.op(4'b0010), .a(EX_pc_plus_4), .b({EX_const_or_addr[29:0], 2'b00}), .dout(EX_pc_br));
+	mux3 #(32) ALUSrc1_mux(.a(EX_rtemp1), .b(wdata), .c(MEM_ALU_res), .s(ForwardA), .dout(EX_rdata1));
+	mux3 #(32) ALUSrc2_mux(.a(EX_rtemp2), .b(wdata), .c(MEM_ALU_res), .s(ForwardB), .dout(EX_rdata2));
 	ALUctrl ALUctrl(.ALUOp(EX_ALUOp), .funct(EX_const_or_addr[5:0]), .op(op));
 	assign ALUSrc_data1 = EX_rdata1;
 	mux2 #(32) ALUSrc_mux(.a(EX_rdata2), .b(EX_const_or_addr), .s(EX_ALUSrc), .dout(ALUSrc_data2));
 	alu alu(.op(op), .a(ALUSrc_data1), .b(ALUSrc_data2), .zero(EX_zero), .dout(EX_ALU_res));
 	mux2 #(5) wreg_mux(.a(EX_rt), .b(EX_rd), .s(EX_RegDst), .dout(EX_wreg));
 
-	fu forwardingUnit(.EX_rs(EX_rt), .EX_rt(EX_rt), .MEM_RegWrite(MEM_RegWrite), .MEM_rd(MEM_rd),
-					  .WB_RegWrite(WB_RegWrite), .WB_rd(WB_rd), .ForwardA(ForwardA), .ForwardB(ForwardB));
+	// Forwarding Unit
+	fu forwardingUnit(.EX_rs(EX_rs), .EX_rt(EX_rt), .MEM_RegWrite(MEM_RegWrite), .MEM_rd(MEM_wreg),
+					  .WB_RegWrite(WB_RegWrite), .WB_rd(WB_wreg), .ForwardA(ForwardA), .ForwardB(ForwardB));
 	
 	// EX/MEM
-	EX_MEM EX_MEM(.clk(clk), .EX_RegDst(EX_RegDst), .EX_RegWrite(EX_RegWrite),
+	EX_MEM EX_MEM(.clk(clk), .EX_MemtoReg(EX_MemtoReg), .EX_RegWrite(EX_RegWrite),
 				  .EX_Branch(EX_Branch), .EX_MemRead(EX_MemRead), .EX_MemWrite(EX_MemWrite),
 				  .EX_pc_br(EX_pc_br), .EX_zero(EX_zero), .EX_ALU_res(EX_ALU_res),
 				  .EX_rdata2(EX_rdata2), .EX_wreg(EX_wreg), 
-				  .MEM_RegDst(MEM_RegDst), .MEM_RegWrite(MEM_RegWrite),
+				  .MEM_MemtoReg(MEM_MemtoReg), .MEM_RegWrite(MEM_RegWrite),
 				  .MEM_Branch(MEM_Branch), .MEM_MemRead(MEM_MemRead), .MEM_MemWrite(MEM_MemWrite),
 				  .MEM_pc_br(MEM_pc_br), .MEM_zero(MEM_zero),
 				  .MEM_ALU_res(MEM_ALU_res), .MEM_rdata2(MEM_rdata2), .MEM_wreg(MEM_wreg));
@@ -132,12 +151,13 @@ module mips(clk, rst) ;
 	dm_4k dm(.addr(MEM_ALU_res), .din(MEM_rdata2), .we(MEM_MemWrite), .re(MEM_MemRead), .clk(clk), .dout(MEM_rdata));
 
 	// MEM/WB
-	MEM_WB MEM_WB(.clk(clk), .MEM_RegDst(MEM_RegDst), .MEM_RegWrite(MEM_RegWrite),
+	MEM_WB MEM_WB(.clk(clk), .MEM_MemtoReg(MEM_MemtoReg), .MEM_RegWrite(MEM_RegWrite),
 				  .MEM_rdata(MEM_rdata), .MEM_ALU_res(MEM_ALU_res), .MEM_wreg(MEM_wreg),
-				  .WB_RegDst(WB_RegDst), .WB_RegWrite(WB_RegWrite),
+				  .WB_MemtoReg(WB_MemtoReg), .WB_RegWrite(WB_RegWrite),
 				  .WB_rdata(WB_rdata), .WB_ALU_res(WB_ALU_res), .WB_wreg(WB_wreg));
 
 	// WB
-	mux2 #(32) RegSrc_mux(.a(WB_ALU_res), .b(WB_rdata), .s(WB_RegDst), .dout(wdata));
+	//???
+	mux2 #(32) RegSrc_mux(.a(WB_ALU_res), .b(WB_rdata), .s(WB_MemtoReg), .dout(wdata));
 
 endmodule

@@ -1,6 +1,7 @@
-module pc (clk, rst, data, dout);
+module pc (clk, rst, en, data, dout);
 	input				clk;
 	input				rst;
+	input				en;
 	input		[31:0]	data;
 	output	reg	[31:0]	dout;
 
@@ -8,7 +9,9 @@ module pc (clk, rst, data, dout);
 	begin
 		if(rst)
 			dout[31:0] <= {32'h0000_3000};
-		else
+		else 
+		if (en) begin
 			dout <= data;
+		end
 	end
 endmodule
