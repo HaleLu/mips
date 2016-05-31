@@ -1,5 +1,5 @@
-module ID_EX(clk, ID_RegDst, ID_RegWrite, ID_Branch, ID_MemRead, ID_MemWrite, ID_ALUSrc, ID_MemtoReg, ID_ALUOp, ID_pc_plus_4, ID_rdata1, ID_rdata2, ID_const_or_addr, ID_rs, ID_rt, ID_rd, 
-				  EX_RegDst, EX_RegWrite, EX_Branch, EX_MemRead, EX_MemWrite, EX_ALUSrc, EX_MemtoReg, EX_ALUOp, EX_pc_plus_4, EX_rdata1, EX_rdata2, EX_const_or_addr, EX_rs, EX_rt, EX_rd);
+module ID_EX(clk, ID_RegDst, ID_RegWrite, ID_Branch, ID_MemRead, ID_MemWrite, ID_ALUSrc, ID_MemtoReg, ID_ALUOp, ID_rdata1, ID_rdata2, ID_const_or_addr, ID_rs, ID_rt, ID_rd, 
+				  EX_RegDst, EX_RegWrite, EX_Branch, EX_MemRead, EX_MemWrite, EX_ALUSrc, EX_MemtoReg, EX_ALUOp, EX_rdata1, EX_rdata2, EX_const_or_addr, EX_rs, EX_rt, EX_rd);
 	input			clk;
 
 	input			ID_RegDst;
@@ -10,7 +10,6 @@ module ID_EX(clk, ID_RegDst, ID_RegWrite, ID_Branch, ID_MemRead, ID_MemWrite, ID
 	input			ID_ALUSrc;
 	input			ID_MemtoReg;
 	input	[1:0]	ID_ALUOp;
-	input	[31:0]	ID_pc_plus_4;
 	input	[31:0]	ID_rdata1;
 	input	[31:0]	ID_rdata2;
 	input	[31:0]	ID_const_or_addr;
@@ -26,7 +25,6 @@ module ID_EX(clk, ID_RegDst, ID_RegWrite, ID_Branch, ID_MemRead, ID_MemWrite, ID
 	output			EX_ALUSrc;
 	output			EX_MemtoReg;
 	output	[1:0]	EX_ALUOp;
-	output	[31:0]	EX_pc_plus_4;
 	output	[31:0]	EX_rdata1;
 	output	[31:0]	EX_rdata2;
 	output	[31:0]	EX_const_or_addr;
@@ -42,7 +40,6 @@ module ID_EX(clk, ID_RegDst, ID_RegWrite, ID_Branch, ID_MemRead, ID_MemWrite, ID
 	reg				ALUSrc;
 	reg				MemtoReg;
 	reg		[1:0]	ALUOp;
-	reg		[31:0]	pc_plus_4;
 	reg		[31:0]	rdata1;
 	reg		[31:0]	rdata2;
 	reg		[31:0]	const_or_addr;
@@ -59,7 +56,6 @@ module ID_EX(clk, ID_RegDst, ID_RegWrite, ID_Branch, ID_MemRead, ID_MemWrite, ID
 		ALUSrc			=	0;
 		MemtoReg		=	0;
 		ALUOp			=	0;
-		pc_plus_4		=	0;
 		rdata1			=	0;
 		rdata2			=	0;
 		const_or_addr	=	0;
@@ -77,7 +73,6 @@ module ID_EX(clk, ID_RegDst, ID_RegWrite, ID_Branch, ID_MemRead, ID_MemWrite, ID
 		ALUSrc			<=	ID_ALUSrc;
 		MemtoReg		<=	ID_MemtoReg;
 		ALUOp			<=	ID_ALUOp;
-		pc_plus_4		<=	ID_pc_plus_4;
 		rdata1			<=	ID_rdata1;
 		rdata2			<=	ID_rdata2;
 		const_or_addr	<=	ID_const_or_addr;
@@ -94,7 +89,6 @@ module ID_EX(clk, ID_RegDst, ID_RegWrite, ID_Branch, ID_MemRead, ID_MemWrite, ID
 	assign EX_ALUSrc		=	ALUSrc;
 	assign EX_MemtoReg		=	MemtoReg;
 	assign EX_ALUOp			=	ALUOp;
-	assign EX_pc_plus_4		=	pc_plus_4;
 	assign EX_rdata1		=	rdata1;
 	assign EX_rdata2		=	rdata2;
 	assign EX_const_or_addr	=	const_or_addr;

@@ -68,15 +68,6 @@ Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 
 Top level modules:
 	ext
 
-} {} {}} D:/Code/Repos/mips/Project_2/datapath/mux.v {1 {vlog -work work -stats=none {D:\Code\Repos\mips\Project_2\datapath\mux.v}
-Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
--- Compiling module mux2
--- Compiling module mux3
-
-Top level modules:
-	mux2
-	mux3
-
 } {} {}} D:/Code/Repos/mips/Project_2/midreg/ID_EX.v {1 {vlog -work work -stats=none D:/Code/Repos/mips/Project_2/midreg/ID_EX.v
 Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
 -- Compiling module ID_EX
@@ -91,12 +82,28 @@ Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 
 Top level modules:
 	alu
 
+} {} {}} D:/Code/Repos/mips/Project_2/datapath/mux.v {1 {vlog -work work -stats=none D:/Code/Repos/mips/Project_2/datapath/mux.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module mux2
+-- Compiling module mux3
+
+Top level modules:
+	mux2
+	mux3
+
 } {} {}} D:/Code/Repos/mips/Project_2/datapath/pc.v {1 {vlog -work work -stats=none D:/Code/Repos/mips/Project_2/datapath/pc.v
 Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
 -- Compiling module pc
 
 Top level modules:
 	pc
+
+} {} {}} D:/Code/Repos/mips/Project_2/mips.v {1 {vlog -work work -stats=none D:/Code/Repos/mips/Project_2/mips.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module mips
+
+Top level modules:
+	mips
 
 } {} {}} D:/Code/Repos/mips/Project_2/midreg/IF_ID.v {1 {vlog -work work -stats=none D:/Code/Repos/mips/Project_2/midreg/IF_ID.v
 Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
