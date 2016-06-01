@@ -86,6 +86,13 @@ Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 
 Top level modules:
 	alu
 
+} {} {}} D:/Code/Repos/mips/Project_2/mips.v {1 {vlog -work work -stats=none D:/Code/Repos/mips/Project_2/mips.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module mips
+
+Top level modules:
+	mips
+
 } {} {}} D:/Code/Repos/mips/Project_2/datapath/pc.v {1 {vlog -work work -stats=none D:/Code/Repos/mips/Project_2/datapath/pc.v
 Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
 -- Compiling module pc
