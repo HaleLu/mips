@@ -1,7 +1,8 @@
-module IF_ID(clk, en, IF_pc_plus_4, IF_ins, 
-					  ID_pc_plus_4, ID_ins);
+module IF_ID(clk, en, rst, IF_pc_plus_4, IF_ins, 
+						   ID_pc_plus_4, ID_ins);
 	input			clk;
 	input			en;
+	input			rst;
 	input	[31:0]	IF_pc_plus_4;
 	input	[31:0]	IF_ins;
 
@@ -17,7 +18,11 @@ module IF_ID(clk, en, IF_pc_plus_4, IF_ins,
 	end
 
 	always @(posedge clk) begin
-		if (en) begin
+		if (rst) begin
+			pc_plus_4	= 0;
+			ins			= 0;
+		end
+		else if (en) begin
 			pc_plus_4	<=	IF_pc_plus_4;
 			ins			<=	IF_ins;
 		end

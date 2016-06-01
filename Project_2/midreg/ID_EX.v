@@ -1,10 +1,9 @@
-module ID_EX(clk, ID_RegDst, ID_RegWrite, ID_Branch, ID_MemRead, ID_MemWrite, ID_ALUSrc, ID_MemtoReg, ID_ALUOp, ID_rdata1, ID_rdata2, ID_const_or_addr, ID_rs, ID_rt, ID_rd, 
-				  EX_RegDst, EX_RegWrite, EX_Branch, EX_MemRead, EX_MemWrite, EX_ALUSrc, EX_MemtoReg, EX_ALUOp, EX_rdata1, EX_rdata2, EX_const_or_addr, EX_rs, EX_rt, EX_rd);
+module ID_EX(clk, ID_RegDst, ID_RegWrite, ID_MemRead, ID_MemWrite, ID_ALUSrc, ID_MemtoReg, ID_ALUOp, ID_rdata1, ID_rdata2, ID_const_or_addr, ID_rs, ID_rt, ID_rd, 
+				  EX_RegDst, EX_RegWrite, EX_MemRead, EX_MemWrite, EX_ALUSrc, EX_MemtoReg, EX_ALUOp, EX_rdata1, EX_rdata2, EX_const_or_addr, EX_rs, EX_rt, EX_rd);
 	input			clk;
 
 	input			ID_RegDst;
 	input			ID_RegWrite;
-	input			ID_Branch;
 	input			ID_MemRead;
 	input			ID_MemWrite;
 	input			ID_ALUSrc;
@@ -19,7 +18,6 @@ module ID_EX(clk, ID_RegDst, ID_RegWrite, ID_Branch, ID_MemRead, ID_MemWrite, ID
 
 	output			EX_RegDst;
 	output			EX_RegWrite;
-	output			EX_Branch;
 	output			EX_MemRead;
 	output			EX_MemWrite;
 	output			EX_ALUSrc;
@@ -34,7 +32,6 @@ module ID_EX(clk, ID_RegDst, ID_RegWrite, ID_Branch, ID_MemRead, ID_MemWrite, ID
 
 	reg				RegDst;
 	reg				RegWrite;
-	reg				Branch;
 	reg				MemRead;
 	reg				MemWrite;
 	reg				ALUSrc;
@@ -50,7 +47,6 @@ module ID_EX(clk, ID_RegDst, ID_RegWrite, ID_Branch, ID_MemRead, ID_MemWrite, ID
 	initial begin
 		RegDst			=	0;
 		RegWrite		=	0;
-		Branch			=	0;
 		MemRead			=	0;
 		MemWrite		=	0;
 		ALUSrc			=	0;
@@ -67,7 +63,6 @@ module ID_EX(clk, ID_RegDst, ID_RegWrite, ID_Branch, ID_MemRead, ID_MemWrite, ID
 	always @(posedge clk) begin
 		RegDst			<=	ID_RegDst;
 		RegWrite		<=	ID_RegWrite;
-		Branch			<=	ID_Branch;
 		MemRead			<=	ID_MemRead;
 		MemWrite		<=	ID_MemWrite;
 		ALUSrc			<=	ID_ALUSrc;
@@ -83,7 +78,6 @@ module ID_EX(clk, ID_RegDst, ID_RegWrite, ID_Branch, ID_MemRead, ID_MemWrite, ID
 
 	assign EX_RegDst		=	RegDst;
 	assign EX_RegWrite		=	RegWrite;
-	assign EX_Branch		=	Branch;
 	assign EX_MemRead		=	MemRead;
 	assign EX_MemWrite		=	MemWrite;
 	assign EX_ALUSrc		=	ALUSrc;

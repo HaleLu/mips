@@ -22,9 +22,11 @@ Top level modules:
 } {} {}} D:/Code/Repos/mips/Project_2/control/hazardDetectionUnit.v {1 {vlog -work work -stats=none D:/Code/Repos/mips/Project_2/control/hazardDetectionUnit.v
 Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
 -- Compiling module hdu
+-- Compiling module br_hdu
 
 Top level modules:
 	hdu
+	br_hdu
 
 } {} {}} D:/Code/Repos/mips/Project_2/datapath/regheap.v {1 {vlog -work work -stats=none D:/Code/Repos/mips/Project_2/datapath/regheap.v
 Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
@@ -47,13 +49,6 @@ Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 
 Top level modules:
 	im_4k
 
-} {} {}} D:/Code/Repos/mips/Project_2/control/forwardUnit.v {1 {vlog -work work -stats=none D:/Code/Repos/mips/Project_2/control/forwardUnit.v
-Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
--- Compiling module fu
-
-Top level modules:
-	fu
-
 } {} {}} D:/Code/Repos/mips/Project_2/datapath/dm.v {1 {vlog -work work -stats=none D:/Code/Repos/mips/Project_2/datapath/dm.v
 Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
 -- Compiling module dm_4k
@@ -75,13 +70,6 @@ Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 
 Top level modules:
 	ID_EX
 
-} {} {}} D:/Code/Repos/mips/Project_2/datapath/alu.v {1 {vlog -work work -stats=none D:/Code/Repos/mips/Project_2/datapath/alu.v
-Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
--- Compiling module alu
-
-Top level modules:
-	alu
-
 } {} {}} D:/Code/Repos/mips/Project_2/datapath/mux.v {1 {vlog -work work -stats=none D:/Code/Repos/mips/Project_2/datapath/mux.v
 Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
 -- Compiling module mux2
@@ -91,6 +79,13 @@ Top level modules:
 	mux2
 	mux3
 
+} {} {}} D:/Code/Repos/mips/Project_2/datapath/alu.v {1 {vlog -work work -stats=none D:/Code/Repos/mips/Project_2/datapath/alu.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module alu
+
+Top level modules:
+	alu
+
 } {} {}} D:/Code/Repos/mips/Project_2/datapath/pc.v {1 {vlog -work work -stats=none D:/Code/Repos/mips/Project_2/datapath/pc.v
 Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
 -- Compiling module pc
@@ -98,19 +93,19 @@ Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 
 Top level modules:
 	pc
 
-} {} {}} D:/Code/Repos/mips/Project_2/mips.v {1 {vlog -work work -stats=none D:/Code/Repos/mips/Project_2/mips.v
-Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
--- Compiling module mips
-
-Top level modules:
-	mips
-
 } {} {}} D:/Code/Repos/mips/Project_2/midreg/IF_ID.v {1 {vlog -work work -stats=none D:/Code/Repos/mips/Project_2/midreg/IF_ID.v
 Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
 -- Compiling module IF_ID
 
 Top level modules:
 	IF_ID
+
+} {} {}} D:/Code/Repos/mips/Project_2/control/forwardingUnit.v {1 {vlog -work work -stats=none D:/Code/Repos/mips/Project_2/control/forwardingUnit.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module fu
+
+Top level modules:
+	fu
 
 } {} {}} D:/Code/Repos/mips/Project_2/control/ctrl.v {1 {vlog -work work -stats=none D:/Code/Repos/mips/Project_2/control/ctrl.v
 Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
